@@ -1,4 +1,10 @@
 <template>
+  {{ count }}
+  {{ userName }}
+
+  <ul>
+    <li v-for="user in users">{{ user.firstName }} - {{ user.age }}</li>
+  </ul>
   <div v-if="showHeader">
     <Header />
   </div>
@@ -24,6 +30,17 @@
       return {
         count: 0,
         showHeader: true,
+        userName: 'Ramon Souto',
+        users:[
+          {
+            firstName:'Ramon',
+            age:35
+          },
+          {
+            firstName:'Dani',
+            age:39
+          }
+        ]
       }
     },
     mounted(){
