@@ -4,6 +4,26 @@
   </div>
 </template>
 
+<script>
+  export default{
+
+    
+    data() {
+      return {
+        interval: 0
+      }
+    },
+    mounted(){
+      this.interval = setInterval(()=>{
+        console.log('Montado about');
+      },1000)
+    },
+    unmounted(){
+      clearInterval(this.interval);
+    }
+  }
+</script>
+
 <style>
 @media (min-width: 1024px) {
   .about {
