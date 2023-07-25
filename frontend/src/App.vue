@@ -1,44 +1,51 @@
 <template>
-  {{ count }}
-  {{ userName }}
+  <span v-if="showName">Mostrar nome</span>
 
+  <div :class="teste"></div>
+
+  <img :src="image">
   <ul>
-    <li v-for="user in users">{{ user.firstName }} - {{ user.age }}</li>
+    <template v-for="(user, key) in users" :key="key">
+      <li v-if="user.is_admin===1">{{ key }} - {{ user.firstName }} - {{ user.age }}</li>
+    </template>
   </ul>
-  <div v-if="showHeader">
-    <Header />
-  </div>
-
-  <button @click="showHeader = !showHeader">Header</button>
-  
-  <h2>App</h2>
-
-  <router-link to="/">Home</router-link>
-  <router-link to="/about">About</router-link>
-
-  <router-view></router-view>
 </template>
 
 <script>
   import Header from '@/components/Header.vue'
 
   export default{
-    components:{
-      Header
-    },
+    
     data() {
       return {
-        count: 0,
-        showHeader: true,
-        userName: 'Ramon Souto',
+        userName: 'Ramon',
+        showName: true,
+        teste: 'classe',
+        image: 'https://picsum.photos/200/300',
         users:[
           {
-            firstName:'Ramon',
-            age:35
+            id:1,
+            firstName: "Ramon",
+            age: 36,
+            is_admin:1
           },
           {
-            firstName:'Dani',
-            age:39
+            id:2,
+            firstName: "Dani",
+            age: 39,
+            is_admin:1
+          },
+          {
+            id:3,
+            firstName: "Bruna",
+            age: 17,
+            is_admin:0
+          },
+          {
+            id:4,
+            firstName: "Beatriz",
+            age: 14,
+            is_admin:0
           }
         ]
       }
