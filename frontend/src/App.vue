@@ -1,18 +1,16 @@
 <template>
-  {{ count }}
-  {{ userName }}
+
+  <span v-if="showName">Mostrar Nome</span>
+
+  <div :class="teste">teste</div>
+
+  <img :src="image" >
 
   <ul>
-    <li v-for="user in users">{{user.firstName }} - {{ user.age }}</li>
+    <template v-for="(user,key) in users" :key="key">
+      <li v-if="user.is_admin===1">{{ key }} - {{ user.firstName }} - {{ user.age }}</li>
+    </template>
   </ul>
-  <button @click="count++">Add</button>
-  <h2>App</h2>
-
-  <router-link to="/">Home</router-link>
-  <router-link to="/about">About</router-link>
-  <router-view />
-
-  
 </template>
 
 <script setup>
@@ -20,15 +18,33 @@
 
   const count = ref(0);
   const userName = ref('Ramon')
-
+  const showName = ref(true)
+  const teste = ref('classe')
+  const image = ref('https://picsum.photos/200/300')
   const users = reactive([
     {
+      id:1,
       firstName: "Ramon",
-      age: 36
+      age: 36,
+      is_admin:1
     },
     {
+      id:2,
       firstName: "Dani",
-      age: 39
+      age: 39,
+      is_admin:1
+    },
+    {
+      id:3,
+      firstName: "Bruna",
+      age: 17,
+      is_admin:0
+    },
+    {
+      id:4,
+      firstName: "Beatriz",
+      age: 14,
+      is_admin:0
     }
   ])
 
