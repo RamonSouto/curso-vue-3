@@ -1,60 +1,30 @@
 <template>
-  <span v-if="showName">Mostrar nome</span>
-
-  <div :class="teste"></div>
-
-  <img :src="image">
+  <h2>Lista de nome</h2>
   <ul>
     <template v-for="(user, key) in users" :key="key">
-      <li v-if="user.is_admin===1">{{ key }} - {{ user.firstName }} - {{ user.age }}</li>
+      <li>{{user.id}} - {{ user.firstName }} {{ user.lastName }} - {{ user.email }}</li>
     </template>
   </ul>
 </template>
 
 <script>
-  import Header from '@/components/Header.vue'
+  import http from '@/services/http.js'
 
   export default{
     
     data() {
       return {
-        userName: 'Ramon',
-        showName: true,
-        teste: 'classe',
-        image: 'https://picsum.photos/200/300',
-        users:[
-          {
-            id:1,
-            firstName: "Ramon",
-            age: 36,
-            is_admin:1
-          },
-          {
-            id:2,
-            firstName: "Dani",
-            age: 39,
-            is_admin:1
-          },
-          {
-            id:3,
-            firstName: "Bruna",
-            age: 17,
-            is_admin:0
-          },
-          {
-            id:4,
-            firstName: "Beatriz",
-            age: 14,
-            is_admin:0
-          }
-        ]
+        users: [],
       }
     },
-    mounted(){
-      console.log('Montado')
-    },
-    updated(){
-      console.log('Atualizado')
+
+    async mounted(){
+      try {
+        const {data} = await http.get('http://localhost/api/users')
+        this.users = data
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 </script>
