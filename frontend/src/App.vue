@@ -1,59 +1,30 @@
 <template>
 
-  <span v-if="showName">Mostrar Nome</span>
-
-  <div :class="teste">teste</div>
-
-  <img :src="image" >
-
+  <h2>Lista de Nomes</h2>
   <ul>
-    <template v-for="(user,key) in users" :key="key">
-      <li v-if="user.is_admin===1">{{ key }} - {{ user.firstName }} - {{ user.age }}</li>
+    <template v-for="(user, key) in users" :key="key">
+      <li>{{ user.id }} - {{ user.firstName }} {{ user.lastName }} - {{ user.email }}</li>
     </template>
   </ul>
+  
 </template>
 
 <script setup>
-  import { onMounted, onUpdated, reactive, ref } from 'vue';
+  import { onMounted, reactive,  } from 'vue';
+  import http from '@/Services/http.js'
 
-  const count = ref(0);
-  const userName = ref('Ramon')
-  const showName = ref(true)
-  const teste = ref('classe')
-  const image = ref('https://picsum.photos/200/300')
-  const users = reactive([
-    {
-      id:1,
-      firstName: "Ramon",
-      age: 36,
-      is_admin:1
-    },
-    {
-      id:2,
-      firstName: "Dani",
-      age: 39,
-      is_admin:1
-    },
-    {
-      id:3,
-      firstName: "Bruna",
-      age: 17,
-      is_admin:0
-    },
-    {
-      id:4,
-      firstName: "Beatriz",
-      age: 14,
-      is_admin:0
+  let users = reactive([])
+
+  onMounted(async() => {
+    try {
+      const {data} = await http.get('/api/users')
+      users = data
+    } catch (error) {
+      console.log(error)
     }
-  ])
+    
+  })
 
-  onMounted(() => {
-    console.log('Montado App')
-  })
-  onUpdated(() => {
-    console.log('Update App')
-  })
 </script>
 
 <style>
