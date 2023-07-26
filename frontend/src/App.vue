@@ -1,5 +1,7 @@
 <template>
   <img :src="imageSrc" alt="" :class="{'my-class': is_admin,'my-other-class':!is_admin}" class="my-default-class">
+
+  <button @click="add">Clique Aqui {{ count }}</button>
   <h2>Lista de Nomes</h2>
   <ul>
     <template v-for="(user, key) in users" :key="user.id">
@@ -17,10 +19,13 @@
   import { onMounted, reactive, ref } from 'vue';
   import http from '@/Services/http.js'
 
+  const count = ref(0)
   const is_admin = ref(false)
   const imageSrc = ref('https://picsum.photos/200/300')
   let users = reactive([])
-
+  function add(){
+    count.value++;
+  }
   onMounted(async() => {
     try {
       const {data} = await http.get('/api/users')
