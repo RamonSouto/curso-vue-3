@@ -1,9 +1,7 @@
 <template>
   
 
-    <template v-if="showHeader">
-      <Header />
-    </template>
+    <img :src="imageSrc" alt="" :class="{'my-class': is_admin,'my-other-class':!is_admin}" class="my-default-class">
 
   <hr>
   <h2>Lista de nome</h2>
@@ -26,7 +24,9 @@
     data() {
       return {
         users: [],
-        showHeader: false
+        showHeader: false,
+        imageSrc: 'https://picsum.photos/200/300',
+        is_admin: false,
       }
     },
 
@@ -44,6 +44,11 @@
   }
 </script>
 
-<style>
-
+<style scoped>
+  .my-class{
+    border: solid 4px red;
+  }
+  .my-other-class{
+    border: solid 4px blue;
+  }
 </style>
