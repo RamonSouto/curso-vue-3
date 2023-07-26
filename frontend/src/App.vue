@@ -1,8 +1,9 @@
 <template>
   
 
-    <img :src="imageSrc" alt="" :class="{'my-class': is_admin,'my-other-class':!is_admin}" class="my-default-class">
+  <img :src="imageSrc" alt="" :class="{'my-class': is_admin,'my-other-class':!is_admin}" class="my-default-class">
 
+  <button @click="add">Clique Aqui {{ count }}</button>
   <hr>
   <h2>Lista de nome</h2>
   <ul>
@@ -24,6 +25,7 @@
     data() {
       return {
         users: [],
+        count: 0,
         showHeader: false,
         imageSrc: 'https://picsum.photos/200/300',
         is_admin: false,
@@ -32,6 +34,11 @@
 
     components:{
       Header
+    },
+    methods:{
+      add(){
+        this.count++;
+      }
     },
     async mounted(){
       try {
