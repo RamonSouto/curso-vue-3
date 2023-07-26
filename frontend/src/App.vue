@@ -1,7 +1,11 @@
 <template>
   <img :src="imageSrc" alt="" :class="{'my-class': is_admin,'my-other-class':!is_admin}" class="my-default-class">
 
-  <button @click="add">Clique Aqui {{ count }}</button>
+  <button @click="count++">Clique Aqui {{ count }}</button>
+  <input type="text">
+  <br>
+  <p>Nome: {{ userName }}</p>
+  <input type="text" v-model="userName">
   <h2>Lista de Nomes</h2>
   <ul>
     <template v-for="(user, key) in users" :key="user.id">
@@ -22,6 +26,7 @@
   const count = ref(0)
   const is_admin = ref(false)
   const imageSrc = ref('https://picsum.photos/200/300')
+  const userName = ref('')
   let users = reactive([])
   function add(){
     count.value++;
