@@ -2,8 +2,12 @@
 
   <h2>Lista de Nomes</h2>
   <ul>
-    <template v-for="(user, key) in users" :key="key">
-      <li>{{ user.id }} - {{ user.firstName }} {{ user.lastName }} - {{ user.email }}</li>
+    <template v-for="(user, key) in users" :key="user.id">
+      <li>
+        {{ user.id }} - {{ user.firstName }} {{ user.lastName }} - {{ user.email }}
+        <button v-if="user.is_admin === 1">Admin</button>
+        <button v-else>Not Admin</button>
+      </li>
     </template>
   </ul>
   
