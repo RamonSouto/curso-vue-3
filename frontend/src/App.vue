@@ -2,8 +2,13 @@
   
 
   <img :src="imageSrc" alt="" :class="{'my-class': is_admin,'my-other-class':!is_admin}" class="my-default-class">
+  <br>
+  <button @click="count++">Clique Aqui {{ count }}</button>
 
-  <button @click="add">Clique Aqui {{ count }}</button>
+  <input type="text" @keyup="add" placeholder="Qualquer coisa">
+  <br>
+  <p>Nome: {{ userName }}</p>
+  <input type="text" v-model="userName" placeholder="Qualquer coisa">
   <hr>
   <h2>Lista de nome</h2>
   <ul>
@@ -29,6 +34,7 @@
         showHeader: false,
         imageSrc: 'https://picsum.photos/200/300',
         is_admin: false,
+        userName: ''
       }
     },
 
@@ -36,8 +42,8 @@
       Header
     },
     methods:{
-      add(){
-        this.count++;
+      add(event){
+        this.count += Number(event.target.value)
       }
     },
     async mounted(){
