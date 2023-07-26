@@ -1,5 +1,5 @@
 <template>
-
+  <img :src="imageSrc" alt="" :class="{'my-class': is_admin,'my-other-class':!is_admin}" class="my-default-class">
   <h2>Lista de Nomes</h2>
   <ul>
     <template v-for="(user, key) in users" :key="user.id">
@@ -14,9 +14,11 @@
 </template>
 
 <script setup>
-  import { onMounted, reactive,  } from 'vue';
+  import { onMounted, reactive, ref } from 'vue';
   import http from '@/Services/http.js'
 
+  const is_admin = ref(false)
+  const imageSrc = ref('https://picsum.photos/200/300')
   let users = reactive([])
 
   onMounted(async() => {
@@ -31,6 +33,11 @@
 
 </script>
 
-<style>
-
+<style scoped>
+  .my-class{
+    border: solid 4px red;
+  }
+  .my-other-class{
+    border: solid 4px blue;
+  }
 </style>
