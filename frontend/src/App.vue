@@ -1,53 +1,36 @@
 <template>
-  <img :src="imageSrc" alt="" :class="{'my-class': is_admin,'my-other-class':!is_admin}" class="my-default-class">
+  <input type="text" name="" id="" v-model="userName">
 
-  <button @click="count++">Clique Aqui {{ count }}</button>
-  <input type="text">
-  <br>
-  <p>Nome: {{ userName }}</p>
-  <input type="text" v-model="userName">
-  <h2>Lista de Nomes</h2>
-  <ul>
-    <template v-for="(user, key) in users" :key="user.id">
-      <li>
-        {{ user.id }} - {{ user.firstName }} {{ user.lastName }} - {{ user.email }}
-        <button v-if="user.is_admin === 1">Admin</button>
-        <button v-else>Not Admin</button>
-      </li>
-    </template>
-  </ul>
+  <template v-for="user in users">
+    <input type="checkbox" name="" @click="userName = user.firstName" :checked="userName == user.firstName">{{ user.firstName }}
+  </template>
   
+  <select name="" id="" v-model="userName">
+    <option :value="user.firstName" v-for="(user) in users">{{ user.firstName }}</option>
+  </select>
+
 </template>
 
 <script setup>
-  import { onMounted, reactive, ref } from 'vue';
-  import http from '@/Services/http.js'
+import {reactive, ref} from 'vue'
 
-  const count = ref(0)
-  const is_admin = ref(false)
-  const imageSrc = ref('https://picsum.photos/200/300')
-  const userName = ref('')
-  let users = reactive([])
-  function add(){
-    count.value++;
-  }
-  onMounted(async() => {
-    try {
-      const {data} = await http.get('/api/users')
-      users = data
-    } catch (error) {
-      console.log(error)
-    }
-    
-  })
-
+  const userName = ref('Ramon')
+  const users = reactive([
+    {
+      id:1,
+      firstName: "Ramon"
+    },
+    {
+      id:2,
+      firstName: "Dani"
+    },
+    {
+      id:3,
+      firstName: "Souto"
+    },
+  ])
 </script>
 
 <style scoped>
-  .my-class{
-    border: solid 4px red;
-  }
-  .my-other-class{
-    border: solid 4px blue;
-  }
+
 </style>
